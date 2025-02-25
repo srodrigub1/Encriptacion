@@ -49,6 +49,9 @@ El programa soporta varias opciones de línea de comandos para encriptar y desen
 ### Notas
 
 - El programa utiliza una clave XOR definida en el código (`#define XOR_KEY 0x5A`).
+
+- ![image](https://github.com/user-attachments/assets/cb343bf5-7013-41fe-a7f4-9a92cdc7c6da)
+
 - La encriptación XOR es reversible, por lo que el mismo programa y la misma clave se utilizan para encriptar y desencriptar.
 
 ## Verificación de tipo de archivo
