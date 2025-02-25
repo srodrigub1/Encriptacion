@@ -1,57 +1,39 @@
-# Compiler
+# Nombre del compilador
 CXX = g++
 
-# Compiler flags
+# Flags del compilador (añadir optimización y activar advertencias)
 CXXFLAGS = -Wall -std=c++11
 
-# Target executable
+# Nombre del archivo fuente
+SRC = encriptacion.cpp
+
+# Nombre del archivo ejecutable
 TARGET = encryptor
 
-# Source files
-SRCS = encryptor.cpp
-
-# Object files (automatically generated)
-OBJS = $(SRCS:.cpp=.o)
-
-# Default rule
+# Regla por defecto para compilar el ejecutable
 all: $(TARGET)
+	@echo "Uso del programa:"
+	@echo "./encryptor -e <archivo> -o <archivo_encriptado>    Encripta el archivo"
+	@echo "./encryptor -d <archivo_encriptado> -o <archivo_desencriptado> Desencripta el archivo"
+	@echo "./encryptor -h                               Muestra este mensaje de ayuda"
+	@echo "./encryptor -v                               Muestra la versión del programa"
 
-# Rule to build the target executable
-$(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
+# Regla para compilar y enlazar el código
+$(TARGET): $(SRC)
+	@$(CXX) $(CXXFLAGS) $(SRC) -o $(TARGET)
 
-# Rule to compile each source file into an object file
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-
-# Rule to clean up generated files
+# Regla para limpiar los archivos generados
 clean:
-	rm -f $(OBJS) $(TARGET)
+	@rm -f $(TARGET)
 
-# Rule to rebuild from scratch
-rebuild: clean all
+# Regla para ejecutar el programa
+run: $(TARGET)
+	@./$(TARGET)
 
-# Custom rule to encrypt a file
-encrypt:
-	./$(TARGET) -e archivo.txt -o archivo_encriptado.txt
-
-# Custom rule to decrypt a file
-decrypt:
-	./$(TARGET) -d archivo_encriptado.txt -o archivo_desencriptado.txt
-
-# Custom rule to decrypt the default encrypted output file
-decrypt_default:
-	./$(TARGET) -d encrypted_output -o archivo_desencriptado.txt
-
-# Rule to display help
+# Regla para mostrar el uso del programa
 help:
-	@echo "Makefile options:"
-	@echo "  make all                - Build the program (default)"
-	@echo "  make clean              - Remove generated files"
-	@echo "  make rebuild            - Clean and rebuild the program"
-	@echo "  make encrypt            - Encrypt archivo.txt"
-	@echo "  make decrypt            - Decrypt archivo_encriptado.txt"
-	@echo "  make decrypt_default    - Decrypt encrypted_output"
-	@echo "  make help               - Show this help message"
-
-.PHONY: all clean rebuild encrypt decrypt decrypt_default help
+	@echo "Uso del programa:"
+	@echo "./encryptor -e <archivo> -o <archivo_encriptado>    Encripta el archivo"
+	@echo "./encryptor -d <archivo_encriptado> -o <archivo_desencriptado> Desencripta el archivo"
+	@echo "./encryptor -h                               Muestra este mensaje de ayuda"
+	@echo "./encryptor -v                               Muestra la versión del programa"
